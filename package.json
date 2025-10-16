@@ -1,0 +1,20 @@
+{
+  "name": "clashclone",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000c\u0000l\u0000a\u0000s\u0000h\u0000c\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xcolinhenderson/clashclone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0xcolinhenderson/clashclone/issues"
+  },
+  "homepage": "https://github.com/0xcolinhenderson/clashclone#readme"
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clash Royale Web Demo</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <h1>My epic clash royale game</h1>
+    <form id="findGameForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+      <button type="submit" id="submitBtn">Find Game</button>
+    </form>
+    <div id="findingGameUI" style="display: none">
+      <p>Finding game... <button id="cancelBtn">Cancel</button></p>
+    </div>
+    <div id="wrapper">
+      <div style="visibility: hidden" id="canvas-wrapper">
+        <canvas id="game"></canvas>
+      </div>
+    </div>
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>
