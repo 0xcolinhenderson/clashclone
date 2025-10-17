@@ -4,7 +4,7 @@ const server = new WebSocket.Server({ port: 8080 });
 let clients = {};
 
 server.on("connection", (ws) => {
-  const clientId = generateUniqueId();
+  const clientId = crypto.randomUUID();
   clients[clientId] = { ws, username: null, id: clientId, state: "connected" };
   console.log(`Client ${clientId} connected`);
 
@@ -42,6 +42,7 @@ server.on("connection", (ws) => {
       if (data.type === "verifyUser") {
         console.log("Verifying username: ", data.username);
         const { username } = data;
+        // bug where cannot use name after client already disconnected
         const isTaken = Object.values(clients).some(
           (client) => client.username === username
         );
@@ -71,15 +72,14 @@ server.on("connection", (ws) => {
 
 setInterval(() => {
   console.log("\n[LOG] Connected players searching for game:");
+  searching = [];
   for (const clientId in clients) {
     const client = clients[clientId];
     if (client.state === "searching") {
-      console.log(`- Username: ${client.username}, ID: ${client.id}`);
+      console.log(
+        `- Username: ${client.username}, ID: ${client.id} [${clientId.state}]`
+      );
+      searching.push(client);
     }
   }
 }, 2000);
-
-function generateUniqueId() {
-  return crypto.randomUUID();
-}
-

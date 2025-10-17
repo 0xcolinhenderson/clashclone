@@ -1,8 +1,9 @@
 import { PlayerConnection } from "./PlayerConnection.js";
 
 export class QueueHandler {
-  constructor(serverInterface) {
+  constructor(serverInterface, matchmakingInterface) {
     this.serverInterface = serverInterface;
+    this.matchmakingInterface = matchmakingInterface;
     this.form = document.getElementById("findGameForm");
     this.usernameInput = this.form.querySelector("input[name='username']");
     this.findingGameUI = document.getElementById("findingGameUI");
@@ -21,8 +22,9 @@ export class QueueHandler {
       this.player = new PlayerConnection(username, this.serverInterface);
 
       try {
-        const verification = await this.player.verifyPlayer();
-        if (verification) {
+        const isVerified = await this.player.verifyPlayer();
+        console.log("Verification result: ", isVerified);
+        if (isVerified) {
           console.log(
             "Player verified: ",
             this.player.username,
@@ -38,6 +40,9 @@ export class QueueHandler {
               id: this.player.id,
             })
           );
+        } else {
+          alert("Username is already taken. Please choose another one.");
+          this.setFormDisabled(false);
         }
       } catch (error) {
         console.error("Error verifying player:", error);
