@@ -2,8 +2,6 @@ const WebSocket = require("ws");
 const server = new WebSocket.Server({ port: 8080 });
 
 let clients = {};
-let nextId = 1;
-let freedIds = [];
 
 server.on("connection", (ws) => {
   const clientId = generateUniqueId();
@@ -66,9 +64,6 @@ server.on("connection", (ws) => {
   });
 
   ws.on("close", () => {
-    if (clients[clientId]?.id) {
-      freeId(clients[clientId].id);
-    }
     delete clients[clientId];
     console.log(`Client ${clientId} disconnected`);
   });
@@ -85,12 +80,6 @@ setInterval(() => {
 }, 2000);
 
 function generateUniqueId() {
-  if (freedIds.length > 0) {
-    return freedIds.pop();
-  }
-  return nextId++;
+  return crypto.randomUUID();
 }
 
-function freeId(id) {
-  freedIds.push(id);
-}

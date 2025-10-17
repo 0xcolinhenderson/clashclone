@@ -1,5 +1,6 @@
-import { Game } from "./game.js";
-import { ServerInterface, QueueHandler } from "./connection.js";
+import { Game } from "./Game/game.js";
+import { ServerInterface } from "./Connection/ServerInterface.js";
+import { QueueHandler } from "./Connection/QueueHandler.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
