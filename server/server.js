@@ -23,6 +23,7 @@ server.on("connection", (ws) => {
       if (data.type === "leaveQueue") {
         if (clients[clientId]) {
           clients[clientId].state = "connected";
+          clients[clientId].username = null;
           console.log(`Client ${clientId} left queue`);
         }
       }
@@ -42,7 +43,6 @@ server.on("connection", (ws) => {
       if (data.type === "verifyUser") {
         console.log("Verifying username: ", data.username);
         const { username } = data;
-        // bug where cannot use name after client already disconnected
         const isTaken = Object.values(clients).some(
           (client) => client.username === username
         );
